@@ -106,6 +106,9 @@ class EnsembleSampler(Sampler):
         if self.threads > 1 and self.pool is None:
             self.pool = InterruptiblePool(self.threads)
 
+    def __del__(self):
+        self.pool.terminate()
+
     def clear_blobs(self):
         """
         Clear the ``blobs`` list.
